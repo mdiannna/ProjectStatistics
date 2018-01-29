@@ -38,6 +38,7 @@ print(linearMod1)
 plot(horsepower,acceleration, col=4:30)
 abline(linearMod1, col="red")
 
+
 linearMod2 <- lm(displacement~horsepower)  # build linear regression model on full data
 print("Parametrii de regresie:")
 print(linearMod2)
@@ -64,4 +65,29 @@ summary(linearMod1)
 
 error1 <- sum((distPred1 - acceleration)^2)
 error1
+
+
+#Calcularea parametrilor pentru linearMod1
+#xm <- 1/length(horsepower) * (sum(horsepower))
+xm <-mean(horsepower)
+#ym <- 1/length(acceleration) * (sum(acceleration))
+ym <- mean(acceleration)
+sum1 <- sum((horsepower-xm)^2)
+sum2 <- sum((horsepower-xm)*(acceleration-ym))
+beta <- sum2/sum1
+alfa <- ym - beta*xm
+print("alfa:")
+print(alfa)
+print("beta:")
+print(beta)
+linearMod1
+
+n<-length(horsepower)
+#dispersia estimata
+disp_estimata <- 1.00/(n-2) * ((sum((acceleration-ym)^2))-(beta^2)*(sum((horsepower-xm)^2)))
+disp_estimata
+#deviatia standard estimata:
+sqrt(disp_estimata)
+
+summary(linearMod1)
 
