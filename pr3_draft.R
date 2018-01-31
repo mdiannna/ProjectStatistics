@@ -1,40 +1,58 @@
 # install.packages("ISLR")
-par(mfrow=c(4,3))
+par(mfrow=c(2,2))
 library(ISLR)
 Auto
-boxplot(Auto)
+plot(Auto)
 
 plot(Auto[["mpg"]])
+#hist(Auto[["mpg"]])
 plot(Auto[["cylinders"]])
 plot(Auto[["displacement"]])
 plot(Auto[["horsepower"]])
+#boxplot(Auto)
+#boxplot(Auto["horsepower"])
 plot(Auto[["weight"]])
 plot(Auto[["acceleration"]])
+#hist(Auto[["origin"]])
 plot(Auto[["year"]])
 plot(Auto[["origin"]])
+
+par(mfrow=c(2,2))
+#plot(Auto[["year"]], Auto[["horsepower"]])
+#plot(Auto[["cylinders"]], Auto[["acceleration"]])
+#plot(Auto[["cylinders"]], Auto[["horsepower"]])
+#plot(Auto[["acceleration"]], Auto[["displacement"]])
 
 
 horsepower <- Auto[["horsepower"]]
 acceleration <-  Auto[["acceleration"]]
-
-#afisam datele
-plot(horsepower,acceleration)
-#plot(horsepower,acceleration, col=4:30)
+displacement <-  Auto[["displacement"]]
+cylinders <- Auto[["cylinders"]]
 
 
-#cream modelul de regresie
-linearMod1 <- lm(acceleration~horsepower )  
-#afisam parametrii de regresie
+linearMod1 <- lm(acceleration~horsepower )  # build linear regression model on full data
 print("Parametrii de regresie:")
 print(linearMod1)
-# alfa = 20.7019 , beta = -0.0494
-#afisam dreapta de regresie
+
+plot(horsepower,acceleration)
+#plot(horsepower,acceleration, col=4:30)
 abline(linearMod1, col="red")
-# afisam datele despre modelul de regresie
+
+
+
+
+
+
+distPred1 <- predict(linearMod1)
+#distPred1
+
 summary(linearMod1)
 
+error1 <- sum((distPred1 - acceleration)^2)
+error1
 
-#Verificam parametrii pentru modelul liniar linearMod1
+
+#Calcularea parametrilor pentru linearMod1
 #xm <- 1/length(horsepower) * (sum(horsepower))
 xm <-mean(horsepower)
 #ym <- 1/length(acceleration) * (sum(acceleration))
@@ -56,6 +74,7 @@ disp_estimata
 #deviatia standard estimata:
 sqrt(disp_estimata)
 
+summary(linearMod1)
 
 #Calculam coeficientul de determinare pentru a stabili 
 # acuratetea modelului
@@ -82,3 +101,23 @@ points(200, 10.82228, pch = "X", col = "cyan")
 
 
 
+
+
+#-----------------------
+#linear mod 2
+
+
+linearMod2 <- lm(displacement~horsepower)  # build linear regression model on full data
+print("Parametrii de regresie:")
+print(linearMod2)
+
+plot(horsepower, displacement, col=1:3)
+abline(linearMod2, col="magenta")
+
+distPred2 <- predict(linearMod2)
+#distPred2
+
+summary(linearMod2)
+
+error2 <- sum((distPred2 - displacement)^2)
+error2
